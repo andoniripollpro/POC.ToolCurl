@@ -69,27 +69,27 @@ namespace POC.ToolCurl
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             Console.WriteLine($"ServicePointManager={ServicePointManager.SecurityProtocol.ToString()}");
 
-            //if (cipherList != null)
-            //{
-            //    SetCipherList(url, cipherList);
-            //}
+            if (cipherList != null)
+            {
+                SetCipherList(url, cipherList);
+            }
 
-            //var httpClient = new HttpClientAdapter();
-            //var tracer = new HttpEventListener();
-            //tracer.EnableEvents(new EventSource("System.Net.Http.HttpClient"), EventLevel.Verbose);
-            //var result = httpClient.StandardGet(url);            
-            //tracer.Dispose();
-            //tracer = null;
+            var httpClient = new HttpClientAdapter();
+            var tracer = new HttpEventListener();
+            tracer.EnableEvents(new EventSource("System.Net.Http.HttpClient"), EventLevel.Verbose);
+            var result = httpClient.StandardGet(url);
+            tracer.Dispose();
+            tracer = null;
 
-            //Console.WriteLine($"-> Resultado:");
-            //Console.WriteLine($"  -> StatusCode: {(int)result.StatusCode} {result.StatusCode}.");
-            //Console.WriteLine($"  -> Headers: {result.Headers}.");
-            //Console.WriteLine($"  -> Content: '{result.Content.ReadAsStringAsync().Result}'");
-            //Console.WriteLine($"  -> RequestMessage: '{result.RequestMessage}'");
+            Console.WriteLine($"-> Resultado:");
+            Console.WriteLine($"  -> StatusCode: {(int)result.StatusCode} {result.StatusCode}.");
+            Console.WriteLine($"  -> Headers: {result.Headers}.");
+            Console.WriteLine($"  -> Content: '{result.Content.ReadAsStringAsync().Result}'");
+            Console.WriteLine($"  -> RequestMessage: '{result.RequestMessage}'");
 
-            Console.WriteLine("Versión con CurlThinWrapper.");
-            var httpSender = new HttpCulrThinWrapper(new LogConsoleWrapper(LogConsoleWrapper.LogLevel.Debug));
-            httpSender.CookedUpGet(url);
+            //Console.WriteLine("Versión con CurlThinWrapper.");
+            //var httpSender = new HttpCulrThinWrapper(new LogConsoleWrapper(LogConsoleWrapper.LogLevel.Debug));
+            //httpSender.CookedUpGet(url);
         }
 
         private static string SetCipherList(string url, string cipherList)
